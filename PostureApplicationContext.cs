@@ -1,4 +1,5 @@
 using System;
+using System.Deployment.Application;
 using System.Drawing;
 using System.Windows.Forms;
 using PostureApplication.Properties;
@@ -53,6 +54,17 @@ namespace PostureApplication
                 {Checked = _timer.Interval == timerInterval});
             }
 
+            var aboutMenuItem = new MenuItem("About...", (sender, args) =>
+            {
+                if(ApplicationDeployment.IsNetworkDeployed)
+                MessageBox.Show(String.Format("Version: {0}", ApplicationDeployment.CurrentDeployment.CurrentVersion),
+                    "Posture Check");
+                else
+                {
+                    MessageBox.Show("Version: Debugging", "Posture Check");
+                }
+            });
+
             var exitMenuItem = new MenuItem("Exit", (sender, args) =>
             {
                 Application.Exit();
@@ -61,6 +73,8 @@ namespace PostureApplication
             _notifyIcon.ContextMenu = new ContextMenu();
             _notifyIcon.ContextMenu.MenuItems.Add(configMenuItem);
             _notifyIcon.ContextMenu.MenuItems.Add(changeInterval);
+            _notifyIcon.ContextMenu.MenuItems.Add("-");
+            _notifyIcon.ContextMenu.MenuItems.Add(aboutMenuItem);
             _notifyIcon.ContextMenu.MenuItems.Add("-");
             _notifyIcon.ContextMenu.MenuItems.Add(exitMenuItem);
 
