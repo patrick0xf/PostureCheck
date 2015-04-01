@@ -26,7 +26,7 @@ namespace PostureApplication
         private void TimerOnTick(object sender, EventArgs eventArgs)
         {
             _notifyIcon.BalloonTipTitle = "Posture Check";
-            _notifyIcon.BalloonTipText = "Check all your posture points now";
+            _notifyIcon.BalloonTipText = "Check all your posture points now.";
             _notifyIcon.ShowBalloonTip(1000);
         }
 
